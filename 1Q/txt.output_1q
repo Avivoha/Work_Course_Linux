@@ -1,0 +1,39 @@
+Time: Tue Feb 18 18:15:09 IST 2025
+USER DETAILS: avivoha:avivoha:x:1000:1000:,,,:/home/avivoha:/bin/bash
+REPO: /home/avivoha/Work_Course_Linux
+BRANCH: 1_question
+VERSIONID: "24.04"
+-------------------------------------------
+/home/avivoha/Work_Course_Linux:
+1Q
+CODE
+DATA
+DOWNLOADS
+
+/home/avivoha/Work_Course_Linux/1Q:
+txt.output_1q
+
+/home/avivoha/Work_Course_Linux/CODE:
+plant.py
+py1.py
+
+/home/avivoha/Work_Course_Linux/DATA:
+FIle_1.txt
+File_2.txt
+img1.jpg
+img2.jpg
+img3.jpg
+plants.csv
+
+/home/avivoha/Work_Course_Linux/DOWNLOADS:
+LINUX_COURSE_WORK-downloads
+
+/home/avivoha/Work_Course_Linux/DOWNLOADS/LINUX_COURSE_WORK-downloads:
+FIle_1.txt
+File_2.txt
+img1.jpg
+img2.jpg
+img3.jpg
+plant.py
+plants.csv
+py1.py
