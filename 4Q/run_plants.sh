@@ -21,10 +21,10 @@ if [[ ! -f "$CSV_FILE" ]]; then
     exit 1
 fi
 
-# Create virtual environment if not exists
+# Create virtual environment if not exists (outside repository)
 VENV_PATH=~/plants_venv
 if [[ ! -d "$VENV_PATH" ]]; then
-    log "Creating new virtual environment..."
+    log "Creating new virtual environment outside repository..."
     python3 -m venv "$VENV_PATH"
 fi
 
@@ -40,27 +40,30 @@ log "Dependencies installed."
 # Read CSV and execute plant.py for each plant
 tail -n +2 "$CSV_FILE" | while IFS=',' read -r plant height leaf_count dry_weight; do
     # Trim whitespace and remove quotes
-    plant=$(echo "$plant" | tr -d '\"')
-    height=$(echo "$height" | tr -d '\"')
-    leaf_count=$(echo "$leaf_count" | tr -d '\"')
-    dry_weight=$(echo "$dry_weight" | tr -d '\"')
+    plant=$(echo "$plant" | tr -d '\"' | xargs)
+    height=$(echo "$height" | tr -d '\"' | xargs)
+    leaf_count=$(echo "$leaf_count" | tr -d '\"' | xargs)
+    dry_weight=$(echo "$dry_weight" | tr -d '\"' | xargs)
 
     # Create directory for the plant
-    PLANT_DIR="~/Work_Course_Linux/4Q/$plant"
+    PLANT_DIR="/home/avivoha/Work_Course_Linux/4Q/$plant"
     mkdir -p "$PLANT_DIR"
 
     # Run Python script
     log "Running plant.py for $plant..."
     python3 ~/Work_Course_Linux/4Q/plant.py --plant "$plant" --height $height --leaf_count $leaf_count --dry_weight $dry_weight
 
-    # Move generated images to the plant directory
+    # Wait a moment to ensure images are generated
+    sleep 2
+
+    # Move generated images to the corresponding plant directory
     mv ~/Work_Course_Linux/4Q/*.png "$PLANT_DIR/" 2>/dev/null
 
     # Verify that images were created
-    if [[ -z "$(ls -A "$PLANT_DIR"/*.png 2>/dev/null)" ]]; then
+    if [[ -z "$(ls -A \"$PLANT_DIR\"/*.png 2>/dev/null)" ]]; then
         log "Error: No images generated for $plant."
     else
-        log "Successfully generated images for $plant."
+        log "Successfully generated images for $plant and stored in $PLANT_DIR."
     fi
 done
 
