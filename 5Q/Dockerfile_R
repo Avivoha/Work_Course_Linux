@@ -1,0 +1,18 @@
+# Use the official R base image
+FROM r-base:latest
+
+# Set working directory
+WORKDIR /app
+
+# Install necessary R packages
+RUN R -e "install.packages(c('DBI', 'RSQLite', 'dplyr', 'ggplot2'))"
+
+# Copy script and SQLite database into the container
+COPY analysis.R /app/analysis.R
+COPY data.db /app/data.db
+
+# Give execution permissions to the script
+RUN chmod +x /app/analysis.R
+
+# Run the script inside the container
+CMD ["Rscript", "/app/analysis.R"]
