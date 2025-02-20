@@ -18,7 +18,7 @@ create_csv() {
 
 # Function to display CSV content with row index
 display_csv() {
-    nl -w2 -s", " "$CSV_FILE"
+    nl -w2 -s", " "$CSV_FILE" | tee -a "$LOG_FILE"
     log "Displayed CSV data"
 }
 
@@ -48,11 +48,11 @@ filter_by_sex() {
 
 # Function to save last output to a new file
 save_last_output() {
-    cp "$LOG_FILE" "$CSV_FILE"_backup_20250220214439.csv
+    cp "$LOG_FILE" "$CSV_FILE"_backup_20250220232416.csv
     log "Saved last output to new CSV file"
 }
 
-# Function to delete a row by index
+# Function to delete a row by row index
 delete_row() {
     read -p "Enter row number to delete: " row
     sed -i "${row}d" "$CSV_FILE"
